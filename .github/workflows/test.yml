@@ -10,10 +10,10 @@ jobs:
   report:
     runs-on: ubuntu-latest
     steps:
-      uses: dorny/test-reporter@v1
-      if: always()
-      with:
-        artifact: test-results
-        name: Tests
-        path: '*.xml'
-        reporter: jest-junit
+      - uses: dorny/test-reporter@v1
+        if: always()
+        with:
+          artifact: test-results
+          name: Tests
+          path: '*.xml'
+          reporter: jest-junit
