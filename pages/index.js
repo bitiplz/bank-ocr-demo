@@ -1,20 +1,28 @@
 import Head from 'next/head'
-import styles from '../styles/Home.module.css'
+
+import CenteredLayout from 'layouts/CenteredLayout'
+import HistoryList from 'components/HistoryList'
+import ParseFile from 'components/ParseFile'
+import ResultTable from 'components/ResultTable'
 
 export default function Home() {
   return (
-    <div className={styles.container}>
+    <>
       <Head>
         <title>Bank OCR Demo</title>
         <meta name="description" content="Bank OCR Demo app" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
-      <main className={styles.main}>
-        <h1 className={styles.title}>Hi</h1>
-      </main>
-
-      <footer className={styles.footer}></footer>
-    </div>
+      <CenteredLayout
+        sidePanel={
+          <>
+            <ParseFile />
+            <HistoryList />
+          </>
+        }
+      >
+        <ResultTable />
+      </CenteredLayout>
+    </>
   )
 }
