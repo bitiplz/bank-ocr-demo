@@ -19,10 +19,10 @@ jobs:
       - name: Build
         run: npm run build
       - name: Tests
-        run: npm run test
+        run: npm run test:ci
       - uses: actions/upload-artifact@v2
         if: always()
         with:
           name: test-results
           path: jest-junit.xml
-          fail-on-error: true
+          if-no-files-found: error
