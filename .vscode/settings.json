@@ -1,0 +1,20 @@
+{
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  "files.autoSave": "onFocusChange",
+  "editor.formatOnSave": true,
+  "breadcrumbs.enabled": true,
+  "workbench.editor.labelFormat": "short",
+  "workbench.colorCustomizations": {
+    "activityBar.inactiveBorder": "#5c7a00",
+    "activityBar.activeBorder": "#739900",
+    "titleBar.inactiveBackground": "#5c7a00",
+    "titleBar.activeForeground": "#fff",
+    "titleBar.inactiveForeground": "#fff",
+    "titleBar.activeBackground": "#739900",
+
+    "panel.border": "#5c7a00",
+    "panelTitle.activeBorder": "#5c7a00",
+    "terminal.tab.activeBorder": "#5c7a00"
+  }
+}

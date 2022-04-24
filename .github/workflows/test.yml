@@ -1,0 +1,19 @@
+name: Tests
+
+on:
+  workflow_run:
+    workflows: ['CI']
+    types:
+      - completed
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    steps:
+      uses: dorny/test-reporter@v1
+      if: always()
+      with:
+        artifact: test-results
+        name: Tests
+        path: '*.xml'
+        reporter: jest-junit
