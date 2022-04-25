@@ -11,18 +11,22 @@ export default function Table({
 }) {
   return (
     <table className={styles.root}>
-      <tr>
-        {fields.map((label) => (
-          <th key={label}>{label}</th>
-        ))}
-      </tr>
-      {data.map((row, rowIndex) => (
-        <tr key={rowIndex}>
-          {fields.map((fieldName) => (
-            <T key={fieldName} item={row[fieldName]} />
+      <thead>
+        <tr>
+          {fields.map((label) => (
+            <th key={label}>{label}</th>
           ))}
         </tr>
-      ))}
+      </thead>
+      <tbody>
+        {data.map((row, rowIndex) => (
+          <tr key={rowIndex}>
+            {fields.map((fieldName) => (
+              <T key={fieldName} item={row[fieldName]} />
+            ))}
+          </tr>
+        ))}
+      </tbody>
     </table>
   )
 }

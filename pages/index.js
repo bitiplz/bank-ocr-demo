@@ -5,6 +5,16 @@ import HistoryList from 'components/HistoryList'
 import ParseFile from 'components/ParseFile'
 import ResultTable from 'components/ResultTable'
 
+import parseRecords from 'features/segments/Parser'
+
+// prettier-ignore
+const input =   ' _  _  _  _  _  _  _  _  _ \n' +
+                    ' _| _| _| _| _| _| _| _| _|\n' +
+                    '|_ |_ |_ |_ |_ |_ |_ |_ |_ \n'
+
+const result = parseRecords(input)
+console.log('result', result)
+
 export default function Home() {
   return (
     <>

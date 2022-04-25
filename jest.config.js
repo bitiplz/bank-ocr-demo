@@ -1,6 +1,6 @@
 module.exports = {
   reporters: ['default', 'jest-junit'],
-  coverageReporters: ['json-summary'],
+  coverageReporters: ['html', 'json-summary'],
   collectCoverage: true,
   collectCoverageFrom: [
     'features/**/*.js',
@@ -10,4 +10,5 @@ module.exports = {
     'layouts/**/*.jsx',
     'pages/**/*.jsx',
   ],
+  moduleDirectories: ['node_modules', '.'],
 }
