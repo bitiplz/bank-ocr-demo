@@ -15,6 +15,7 @@ const isMapValid = (map) =>
 export default function configFrom(params = {}) {
   const {
     characterMap,
+    extendMap = false,
     mask,
     extendMask = false,
     pattern,
@@ -25,16 +26,23 @@ export default function configFrom(params = {}) {
     throw new Error('test error')
   }
 
-  let computedCharacterMap = characterMap
-  if (!isMapValid(computedCharacterMap)) {
-    computedCharacterMap = DEFAULTS.CHARACTER_MAP
-    console.warn('invalid character map in config. fallback to default.')
+  let computedCharacterMap = DEFAULTS.CHARACTER_MAP
+  if (characterMap) {
+    computedCharacterMap = extendMap
+      ? { ...DEFAULTS.CHARACTER_MAP, ...characterMap }
+      : characterMap
+    if (!isMapValid(computedCharacterMap)) {
+      computedCharacterMap = DEFAULTS.CHARACTER_MAP
+      console.warn('invalid character map in config. fallback to default.')
+    }
   }
 
   let computedPattern = pattern
   if (!isPatternValid(computedPattern)) {
     computedPattern = DEFAULTS.PATTERN
-    console.warn('invalid pattern in config. fallback to default.')
+    if (pattern) {
+      console.warn('invalid pattern in config. fallback to default.')
+    }
   }
 
   let computedMask = DEFAULTS.MASK

@@ -15,7 +15,10 @@ export default function getRecords(parser) {
   } = parser
 
   const toNumber = segmentsToNumber(parser)
-  const characterMap = MAP.map(toNumber)
+  const characterMap = Object.entries(MAP).map(([key, v]) => ({
+    key,
+    value: toNumber(v),
+  }))
 
   if (result) {
     result.forEach((item) => {
@@ -32,12 +35,12 @@ export default function getRecords(parser) {
           ''
         )
 
-        const match = characterMap.findIndex((pattern) => {
+        const match = characterMap.find(({ value }) => {
           const n = toNumber(sample)
-          return n !== -1 && n === pattern
+          return n !== -1 && n === value
         })
 
-        recognizedEntry.push(match > -1 ? match : '?')
+        recognizedEntry.push(match?.key || '?')
       }
 
       item.output = recognizedEntry
