@@ -1,6 +1,6 @@
 import Head from 'next/head'
 
-import CenteredLayout from 'layouts/CenteredLayout'
+import SplitLayout from 'layouts/SplitLayout'
 import HistoryList from 'components/HistoryList'
 import AddFile from 'components/AddFile'
 import ResultTable from 'components/ResultTable'
@@ -13,9 +13,16 @@ export default function Home() {
         <meta name="description" content="Bank OCR Demo app" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <CenteredLayout>
-        <AddFile />
-      </CenteredLayout>
+      <SplitLayout
+        sidePanel={
+          <>
+            <AddFile />
+            <HistoryList />
+          </>
+        }
+      >
+        <ResultTable />
+      </SplitLayout>
     </>
   )
 }

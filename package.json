@@ -11,13 +11,14 @@
     "test:coverage": "jest --coverage",
     "test:ci": "jest --ci --reporters=default --reporters=jest-junit",
     "prepare": "husky install",
-    "pre-commit": "yarn lint --fix && git add -A . && yarn test",
+    "pre-commit": "yarn lint && yarn test",
     "pre-push": "yarn lint --fix && git add -A . && yarn build && yarn test"
   },
   "dependencies": {
     "next": "12.1.5",
     "react": "18.0.0",
-    "react-dom": "18.0.0"
+    "react-dom": "18.0.0",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "babel-jest": "^27.5.1",

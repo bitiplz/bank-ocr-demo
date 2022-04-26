@@ -1,27 +1,22 @@
 import styles from './FileInput.module.css'
 
-export default function FileInput({
-  value,
-  onChange,
-  multiple = false,
-  inputProps = {},
-}) {
-  const computedValue = value || multiple ? [] : null
-  const handleChange = ({ target: { files } }) => {
-    if (onChange) {
-      onChange(files)
-    }
-  }
-
+export default function FileInput({ value, onChange, ...rest }) {
   return (
-    <input
-      className={styles.root}
-      value={computedValue}
-      onChange={handleChange}
-      type="file"
-      id="avatar"
-      {...inputProps}
-      multiple={multiple}
-    />
+    <div>
+      {Boolean(value.length) && (
+        <div>Selected files: {value.map((f) => f.name).join(', ')}</div>
+      )}
+      <label>
+        Click to select some files...
+        <input
+          {...rest}
+          style={{ display: 'none' }}
+          type="file"
+          onChange={(e) => {
+            onChange([...e.target.files])
+          }}
+        />
+      </label>
+    </div>
   )
 }

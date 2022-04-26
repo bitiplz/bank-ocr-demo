@@ -1,14 +1,10 @@
 import styles from './Table.module.css'
 
 const DefaultCellRenderer = ({ item: label }) => {
-  return <td>{label}</td>
+  return { label }
 }
 
-export default function Table({
-  fields = [],
-  data = [],
-  cellTemplate: T = DefaultCellRenderer,
-}) {
+export default function Table({ fields = [], data = [], fieldTemplate }) {
   return (
     <table className={styles.root}>
       <thead>
@@ -21,9 +17,14 @@ export default function Table({
       <tbody>
         {data.map((row, rowIndex) => (
           <tr key={rowIndex}>
-            {fields.map((fieldName) => (
-              <T key={fieldName} item={row[fieldName]} />
-            ))}
+            {fields.map((fieldName) => {
+              const T = fieldTemplate?.[fieldName] || DefaultCellRenderer
+              return (
+                <td key={fieldName}>
+                  <T item={row[fieldName]} />
+                </td>
+              )
+            })}
           </tr>
         ))}
       </tbody>

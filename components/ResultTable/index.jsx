@@ -1,19 +1,44 @@
+import { useOcrContext } from 'components/context/OcrProvider'
+import { useRouter } from 'next/router'
 import Table from 'components/common/Table'
 
-const TABLE_HEAD = ['input', 'value', 'status']
+const TABLE_HEAD = ['input', 'output', 'outputValid']
 
-const dummyResults = [
-  { input: 'xxxxxxxxx', value: '111111111', status: 'ok' },
-  { input: 'xxxxxxxxx', value: '2222?11?1', status: 'nok' },
-  { input: 'xxxxxxxxx', value: '111111111', status: 'ok' },
-  { input: 'xxxxxxxxx', value: '111111111', status: 'ok' },
-]
+const InputTemplate = ({ item: lines }) => (
+  <pre>
+    {lines.map((line) => (
+      <>
+        {line}
+        <br />
+      </>
+    ))}
+  </pre>
+)
 
-export default function ParseResult({ parseId }) {
+const OutputTemplate = ({ item: characters }) => (
+  <span>{characters.join('')}</span>
+)
+const StatusTemplate = ({ item: isValidOutput }) => (
+  <span>{isValidOutput ? 'ok' : 'nok'}</span>
+)
+
+export default function ResultTable() {
+  const { history } = useOcrContext()
+  const {
+    query: { id: resultId },
+  } = useRouter()
+
+  const current = history.find(({ id }) => id === resultId)
+
   return (
-    <>
-      <h2>{parseId}</h2>
-      <Table data={dummyResults} fields={TABLE_HEAD} />
-    </>
+    <Table
+      fields={TABLE_HEAD}
+      data={current?.result?.data || []}
+      fieldTemplate={{
+        input: InputTemplate,
+        output: OutputTemplate,
+        outputValid: StatusTemplate,
+      }}
+    />
   )
 }
