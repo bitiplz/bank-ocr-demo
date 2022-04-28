@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { Paper, Button, FileInput } from 'components/common'
 import styles from './AddFile.module.css'
@@ -6,7 +6,15 @@ import styles from './AddFile.module.css'
 export default function AddFile() {
   const [files, setFiles] = useState([])
   const [processing, setProcessing] = useState(false)
-  const { push: navigate } = useRouter()
+  const {
+    query: { id: resultId },
+    push: navigate,
+  } = useRouter()
+
+  useEffect(() => {
+    setProcessing(false)
+    setFiles([])
+  }, [resultId])
 
   const submit = () => {
     if (files.length) {

@@ -10,7 +10,7 @@ export default function Table({ fields = [], data = [] }) {
     <table className={styles.root}>
       <thead>
         <tr>
-          {fields.map(([label, _, align]) => (
+          {fields.map(({ label, align }) => (
             <th
               key={label}
               className={cx(styles.headCell, {
@@ -27,16 +27,16 @@ export default function Table({ fields = [], data = [] }) {
         {data.map((row, rowIndex) => (
           <tr key={rowIndex} className={styles.row}>
             {fields.map(
-              ([fieldName, Template = DefaultCellRenderer, align]) => {
+              ({ field, template: Template = DefaultCellRenderer, align }) => {
                 return (
                   <td
-                    key={fieldName}
+                    key={field}
                     className={cx(styles.cell, {
                       [styles.cellLeft]: align !== 'right',
                       [styles.cellRight]: align === 'right',
                     })}
                   >
-                    <Template item={row[fieldName]} />
+                    <Template item={row[field]} />
                   </td>
                 )
               }

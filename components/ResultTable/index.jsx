@@ -2,9 +2,19 @@ import { Paper, Table } from 'components/common'
 import * as Template from './Templates'
 
 const FIELDS = [
-  ['input', Template.Input, 'left'],
-  ['output', Template.Output, 'right'],
-  ['outputValid', Template.Status, 'right'],
+  { field: 'input', label: 'Input', template: Template.Input },
+  {
+    field: 'output',
+    label: 'Account',
+    template: Template.Output,
+    align: 'right',
+  },
+  {
+    field: 'outputValid',
+    label: 'Status',
+    template: Template.Status,
+    align: 'right',
+  },
 ]
 
 export default function ResultTable({ data = [], activeId = '' }) {
