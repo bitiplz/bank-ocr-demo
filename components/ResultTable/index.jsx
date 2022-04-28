@@ -11,6 +11,7 @@ export default function ResultTable({ data = [], activeId = '' }) {
   return (
     <Paper primary title="Results" sub={activeId}>
       <Table fields={FIELDS} data={data} />
+      {data.length === 0 && <i>No result available</i>}
     </Paper>
   )
 }

@@ -9,6 +9,7 @@ export default function HistoryList({ history, activeId }) {
   return (
     <Paper title="Files">
       <List template={Tempalte} items={history} />
+      {history.length === 0 && <i>No file available</i>}
     </Paper>
   )
 }

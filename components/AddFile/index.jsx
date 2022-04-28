@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import { Paper, Button, FileInput } from 'components/common'
 import styles from './AddFile.module.css'
 
-export default function ParseFile() {
+export default function AddFile() {
   const [files, setFiles] = useState([])
   const [processing, setProcessing] = useState(false)
   const { push: navigate } = useRouter()
@@ -37,8 +37,13 @@ export default function ParseFile() {
 
   return (
     <Paper>
-      <FileInput multiple={false} value={files} onChange={onFilesChange} />
-      {files.length > 0 && (
+      <FileInput
+        multiple={false}
+        value={files}
+        onChange={onFilesChange}
+        disabled={processing}
+      />
+      {files.length > 0 && !processing && (
         <div className={styles.actions}>
           <span className={styles.col}>
             <span className={styles.filenameLabel}>{` ${files[0].name}`}</span>
@@ -56,6 +61,7 @@ export default function ParseFile() {
           </Button>
         </div>
       )}
+      {processing && <i>procesisng...</i>}
     </Paper>
   )
 }
