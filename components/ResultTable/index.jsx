@@ -10,7 +10,7 @@ const FIELDS = [
     align: 'right',
   },
   {
-    field: 'outputValid',
+    field: (row) => row,
     label: 'Status',
     template: Template.Status,
     align: 'right',

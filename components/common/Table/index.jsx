@@ -28,6 +28,8 @@ export default function Table({ fields = [], data = [] }) {
           <tr key={rowIndex} className={styles.row}>
             {fields.map(
               ({ field, template: Template = DefaultCellRenderer, align }) => {
+                const item =
+                  typeof field === 'function' ? field(row) : row[field]
                 return (
                   <td
                     key={field}
@@ -36,7 +38,7 @@ export default function Table({ fields = [], data = [] }) {
                       [styles.cellRight]: align === 'right',
                     })}
                   >
-                    <Template item={row[field]} />
+                    <Template item={item} />
                   </td>
                 )
               }

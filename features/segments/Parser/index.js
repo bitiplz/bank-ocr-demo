@@ -1,9 +1,11 @@
 import { ERROR } from './messages'
+
 import parser from './functions/parser'
-import results from './functions/results'
 import evaluate from './functions/evaluate'
+import results from './functions/results'
 
 export { parser, evaluate, results }
+export { default as postRecord } from './functions/postRecord'
 
 export default function parseRecords(input, config) {
   try {
