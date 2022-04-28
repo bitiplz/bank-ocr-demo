@@ -10,6 +10,7 @@ export default function getRecords(parser) {
       charMap: MAP,
     },
     result,
+    recordPostProcessor,
   } = parser
 
   const characters = Object.entries(MAP).map(([key, value]) => ({
@@ -41,6 +42,10 @@ export default function getRecords(parser) {
 
       item.output = recognizedEntry
       item.outputValid = !item.output.includes('?')
+
+      if (recordPostProcessor) {
+        item.postProcessData = recordPostProcessor(recognizedEntry)
+      }
     })
   }
 }

@@ -22,6 +22,13 @@ export const ENTRY_MALFORMED = (payload) => ({
   message: `malformed entry at line ${payload?.line}`,
 })
 
+export const POST_RECORD_FAILED = (payload) => ({
+  type: 'ERROR',
+  severity: 'error',
+  message: 'record postprocessor failed',
+  payload,
+})
+
 export const ERROR = (payload) => ({
   type: 'ERROR',
   severity: 'error',
