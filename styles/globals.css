@@ -1,5 +1,5 @@
 :root {
-  --main-bg: #bbb;
+  --main-bg: #807a79;
   --main-color: #333;
 
   --paper-bg: #fff;
@@ -8,6 +8,7 @@
   --primary: #f58216;
   --primary-light: #fa9c1b;
   --primary-dark: #f05e16;
+  --primary-opa: rgba(245, 130, 22, 0.1);
 
   --gray-0: #666;
   --gray-1: #ccc;

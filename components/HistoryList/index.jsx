@@ -7,7 +7,7 @@ export default function HistoryList({ history, activeId }) {
     activeItem.active = true
   }
   return (
-    <Paper title="File History">
+    <Paper title="Files">
       <List template={Tempalte} items={history} />
     </Paper>
   )

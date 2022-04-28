@@ -14,6 +14,14 @@
   border-left: 4px solid transparent;
 }
 
+.item strong {
+  font-weight: 500;
+}
+
+.item small {
+  font-size: 0.75rem;
+}
+
 .item:hover:not(.highlighted) {
   transform: scale(1.05);
   transition: var(--trans-default);

@@ -6,28 +6,34 @@
 .dropArea {
   min-width: 16rem;
   width: 100%;
-  text-align: center;
-  border: 2px dashed var(--primary);
-
-  transition: var(--trans-default);
-}
-
-.dropArea.faded {
-  opacity: 0.5;
-  border: 2px dashed var(--gray-1);
-}
-
-.dropAreaLabel {
-  width: 100%;
   min-height: 8rem;
-  line-height: 8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   text-align: center;
+  border: 2px dashed var(--gray-0);
+  border-radius: 0.5rem;
   cursor: pointer;
 
   transition: var(--trans-default);
 }
 
-.dropAreaLabel.small {
-  line-height: 2rem;
-  opacity: 0.75;
+.dropArea:hover {
+  color: var(--primary-dark);
+}
+
+.nonInteractive {
+  pointer-events: none;
+}
+
+.dropArea.small {
+  min-height: 2rem;
+  opacity: 0.5;
+  border: 2px dashed var(--gray-1);
+}
+
+.dropArea.dragOver {
+  background-color: var(--primary-opa);
+  border-color: var(--primary-dark);
+  color: var(--primary-dark);
 }

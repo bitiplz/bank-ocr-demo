@@ -2,10 +2,23 @@
   margin: 0.5rem 0;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-end;
   flex-wrap: wrap;
 }
 
 .filenameLabel {
   padding-right: 0.5rem;
+  font-weight: 800;
+  cursor: default;
+}
+
+.col {
+  display: flex;
+  flex-direction: column;
+}
+
+.rm {
+  font-size: 0.75rem;
+  color: var(--gray-0);
+  cursor: pointer;
 }

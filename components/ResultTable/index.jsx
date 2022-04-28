@@ -9,7 +9,7 @@ const FIELDS = [
 
 export default function ResultTable({ data = [], activeId = '' }) {
   return (
-    <Paper title="Results" sub={activeId}>
+    <Paper primary title="Results" sub={activeId}>
       <Table fields={FIELDS} data={data} />
     </Paper>
   )

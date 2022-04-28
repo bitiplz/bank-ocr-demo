@@ -5,6 +5,7 @@ import styles from './AddFile.module.css'
 
 export default function ParseFile() {
   const [files, setFiles] = useState([])
+  const [processing, setProcessing] = useState(false)
   const { push: navigate } = useRouter()
 
   const onFilesChange = (files) => {
@@ -13,12 +14,15 @@ export default function ParseFile() {
 
   const submit = () => {
     if (files.length) {
+      setProcessing(true)
       const formData = new FormData()
 
       formData.append('file', files[0])
 
       const request = new XMLHttpRequest()
       request.onreadystatechange = () => {
+        setProcessing(false)
+        setFiles([])
         if (request.readyState == 4) {
           if (request.status == 200) {
             const { id } = JSON.parse(request.response)
@@ -36,12 +40,18 @@ export default function ParseFile() {
       <FileInput multiple={false} value={files} onChange={onFilesChange} />
       {files.length > 0 && (
         <div className={styles.actions}>
-          <span>
-            <small className={styles.filenameLabel}>FILE:</small>
-            <span>{` ${files[0].name}`}</span>
+          <span className={styles.col}>
+            <span className={styles.filenameLabel}>{` ${files[0].name}`}</span>
+            <span
+              role="button"
+              className={styles.rm}
+              onClick={() => setFiles([])}
+            >
+              remove
+            </span>
           </span>
 
-          <Button onClick={submit} disabled={!files.length}>
+          <Button onClick={submit} disabled={!files.length || processing}>
             Process file
           </Button>
         </div>
