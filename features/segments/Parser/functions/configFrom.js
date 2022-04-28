@@ -1,26 +1,14 @@
 import * as DEFAULTS from '../defaults'
 
-const isPatternValid = (pattern) =>
-  Array.isArray(pattern) &&
-  pattern.length > 0 &&
-  pattern.every(
-    (line) => Array.isArray(line) && line.length === pattern[0].length
+const isMapValid = (map) =>
+  typeof map === 'object' &&
+  Object.keys(map).length &&
+  Object.values(map).every(
+    (char) => typeof char === 'string' && char.length === map[0].length
   )
 
-const isMapValid = (map) =>
-  Array.isArray(map) &&
-  map.length > 0 &&
-  map.every((char) => typeof char === 'string' && char.length === map[0].length)
-
 export default function configFrom(params = {}) {
-  const {
-    characterMap,
-    extendMap = false,
-    mask,
-    extendMask = false,
-    pattern,
-    charactersPerEntry,
-  } = params
+  const { characterMap, extendMap = false, charactersPerEntry } = params
 
   if (params._testError) {
     throw new Error('test error')
@@ -37,33 +25,15 @@ export default function configFrom(params = {}) {
     }
   }
 
-  let computedPattern = pattern
-  if (!isPatternValid(computedPattern)) {
-    computedPattern = DEFAULTS.PATTERN
-    if (pattern) {
-      console.warn('invalid pattern in config. fallback to default.')
-    }
-  }
-
-  let computedMask = DEFAULTS.MASK
-  if (mask) {
-    computedMask = extendMask ? { ...DEFAULTS.MASK, ...mask } : mask
-  }
-
   const computedCharactersPerEntry = isNaN(charactersPerEntry)
     ? DEFAULTS.ENTRY_CHARACTERS
     : charactersPerEntry
 
-  const characterResolution = {
-    x: computedPattern[0].length,
-    y: computedPattern.length,
-  }
+  const characterResolution = DEFAULTS.CHAR_RESOLUTION
 
   return {
     charMap: computedCharacterMap,
-    mask: computedMask,
-    pattern: computedPattern.flat(),
-    characterResolution,
+    characterResolution: characterResolution,
     characterBitsLength: characterResolution.x * characterResolution.y,
     charactersPerEntry: computedCharactersPerEntry,
     entryLineLength: computedCharactersPerEntry * characterResolution.x,

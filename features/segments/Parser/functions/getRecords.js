@@ -1,5 +1,3 @@
-import segmentsToNumber from './toNumber'
-
 export default function getRecords(parser) {
   if (!parser) {
     return
@@ -14,10 +12,9 @@ export default function getRecords(parser) {
     result,
   } = parser
 
-  const toNumber = segmentsToNumber(parser)
-  const characterMap = Object.entries(MAP).map(([key, v]) => ({
+  const characters = Object.entries(MAP).map(([key, value]) => ({
     key,
-    value: toNumber(v),
+    value,
   }))
 
   if (result) {
@@ -35,9 +32,8 @@ export default function getRecords(parser) {
           ''
         )
 
-        const match = characterMap.find(({ value }) => {
-          const n = toNumber(sample)
-          return n !== -1 && n === value
+        const match = characters.find(({ value }) => {
+          return sample === value
         })
 
         recognizedEntry.push(match?.key || '?')

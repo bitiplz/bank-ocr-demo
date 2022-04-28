@@ -5,8 +5,8 @@ const TABLE_HEAD = ['input', 'output', 'outputValid']
 
 const InputTemplate = ({ item: lines }) => (
   <pre>
-    {lines.map((line) => (
-      <Fragment key={line}>
+    {lines.map((line, i) => (
+      <Fragment key={`${line}-${i}`}>
         {line}
         <br />
       </Fragment>

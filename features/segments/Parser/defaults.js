@@ -49,17 +49,5 @@ export const CHARACTER_MAP = {
     +' _|'
 }
 
-export const MASK = {
-  V: [[' '], ['|']],
-  H: [[' '], ['_']],
-  E: [[' '], ['*']],
-}
-
-// prettier-ignore
-export const PATTERN = [
-    ['E','H','E'],
-    ['V','H','V'],
-    ['V','H','V'],
-  ]
-
 export const ENTRY_CHARACTERS = 9
+export const CHAR_RESOLUTION = { x: 3, y: 3 }
