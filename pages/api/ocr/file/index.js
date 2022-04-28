@@ -3,7 +3,7 @@ import ParseFile from 'features/segments/Parser'
 import multer from 'multer'
 import fs from 'fs'
 
-import adapter from 'db/adapters'
+import adapter from 'lib/db/adapters'
 
 export const config = {
   api: {

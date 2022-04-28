@@ -7,7 +7,7 @@ export default function HistoryItemTemplate({ item: { id, createdAt, name } }) {
       <div role="button" className={styles.listItem}>
         <strong>{name}</strong>
         <br />
-        <small>{new Date(createdAt).toLocaleString()}</small>
+        <small>{createdAt}</small>
         <br />
         <small>{id}</small>
       </div>

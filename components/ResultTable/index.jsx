@@ -1,3 +1,4 @@
+import { Fragment } from 'react'
 import Table from 'components/common/Table'
 
 const TABLE_HEAD = ['input', 'output', 'outputValid']
@@ -5,10 +6,10 @@ const TABLE_HEAD = ['input', 'output', 'outputValid']
 const InputTemplate = ({ item: lines }) => (
   <pre>
     {lines.map((line) => (
-      <>
+      <Fragment key={line}>
         {line}
         <br />
-      </>
+      </Fragment>
     ))}
   </pre>
 )

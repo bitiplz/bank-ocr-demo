@@ -49,10 +49,15 @@ export async function getServerSideProps(context) {
     fetch(`http://localhost:3000/api/ocr/file/${id}`),
   ])
 
-  const history = await historyData.json()
-  const result = await resultData.json()
+  const [historyResult, resultResult] = await Promise.all([
+    historyData.json(),
+    resultData.json(),
+  ])
+
+  const history = historyData.status === 200 ? historyResult : []
+  const result = resultData.status === 200 ? resultResult.data : {}
 
   return {
-    props: { ssr: { history, resultId: id, result: result.data } },
+    props: { ssr: { history, resultId: id, result } },
   }
 }
