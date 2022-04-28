@@ -1,5 +1,3 @@
-import { useOcrContext } from 'components/context/OcrProvider'
-import { useRouter } from 'next/router'
 import Table from 'components/common/Table'
 
 const TABLE_HEAD = ['input', 'output', 'outputValid']
@@ -22,18 +20,11 @@ const StatusTemplate = ({ item: isValidOutput }) => (
   <span>{isValidOutput ? 'ok' : 'nok'}</span>
 )
 
-export default function ResultTable() {
-  const { history } = useOcrContext()
-  const {
-    query: { id: resultId },
-  } = useRouter()
-
-  const current = history.find(({ id }) => id === resultId)
-
+export default function ResultTable({ data }) {
   return (
     <Table
       fields={TABLE_HEAD}
-      data={current?.result?.data || []}
+      data={data || []}
       fieldTemplate={{
         input: InputTemplate,
         output: OutputTemplate,

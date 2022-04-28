@@ -1,9 +1,6 @@
 import Head from 'next/head'
-
 import CenteredLayout from 'layouts/CenteredLayout'
-import HistoryList from 'components/HistoryList'
 import AddFile from 'components/AddFile'
-import ResultTable from 'components/ResultTable'
 
 export default function Home() {
   return (

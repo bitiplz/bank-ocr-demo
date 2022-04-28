@@ -1,5 +1,3 @@
-import styles from './FileInput.module.css'
-
 export default function FileInput({ value, onChange, ...rest }) {
   return (
     <div>
