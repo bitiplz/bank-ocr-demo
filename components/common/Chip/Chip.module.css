@@ -1,0 +1,29 @@
+.root {
+  text-transform: uppercase;
+  font-size: small;
+  font-weight: 600;
+  padding: 0 0.75rem;
+  border-radius: 0.33rem;
+  background-color: var(--primary-light);
+  color: white;
+}
+
+.warning {
+  background-color: var(--warning);
+}
+
+.error {
+  background-color: var(--error);
+}
+
+.success {
+  background-color: var(--success);
+}
+
+.info {
+  background-color: var(--info);
+}
+
+.pink {
+  background-color: var(--pink);
+}

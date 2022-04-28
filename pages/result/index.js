@@ -1,8 +1,7 @@
 import Head from 'next/head'
 
-import SplitLayout from 'layouts/SplitLayout'
+import CenteredLayout from 'layouts/CenteredLayout'
 import HistoryList from 'components/HistoryList'
-import AddFile from 'components/AddFile'
 
 export default function Results({ ssr = {} }) {
   const { history } = ssr
@@ -14,10 +13,9 @@ export default function Results({ ssr = {} }) {
         <meta name="description" content="Bank OCR Demo app" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <SplitLayout>
-        <AddFile />
+      <CenteredLayout>
         <HistoryList history={history} />
-      </SplitLayout>
+      </CenteredLayout>
     </>
   )
 }

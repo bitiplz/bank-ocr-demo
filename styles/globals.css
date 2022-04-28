@@ -1,18 +1,35 @@
+:root {
+  --main-bg: #bbb;
+  --main-color: #333;
+
+  --paper-bg: #fff;
+  --paper-shadow: -1px 1px 2px -1px #000;
+
+  --primary: #f58216;
+  --primary-light: #fa9c1b;
+  --primary-dark: #f05e16;
+
+  --gray-0: #666;
+  --gray-1: #ccc;
+  --gray-2: #ddd;
+  --gray-3: #eee;
+  --info: cyan;
+  --success: lime;
+  --warning: yellow;
+  --error: red;
+  --pink: pink;
+
+  --trans-default: all 0.1s ease;
+}
+
 html,
 body {
   padding: 0;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-}
-
-a {
-  color: blue;
-  text-decoration: none;
-}
-
-a:hover {
-  font-weight: bold;
+  background-color: var(--main-bg);
+  color: var(--main-color);
 }
 
 * {

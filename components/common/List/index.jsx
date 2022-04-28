@@ -1,4 +1,4 @@
-import styles from 'components/common/List/List.module.css'
+import styles from './List.module.css'
 import cx from 'classnames'
 
 const DefaultItemRenderer = ({ item }) => {

@@ -1,36 +1,16 @@
-import { Fragment } from 'react'
-import Table from 'components/common/Table'
+import { Paper, Table } from 'components/common'
+import * as Template from './Templates'
 
-const TABLE_HEAD = ['input', 'output', 'outputValid']
+const FIELDS = [
+  ['input', Template.Input, 'left'],
+  ['output', Template.Output, 'right'],
+  ['outputValid', Template.Status, 'right'],
+]
 
-const InputTemplate = ({ item: lines }) => (
-  <pre>
-    {lines.map((line, i) => (
-      <Fragment key={`${line}-${i}`}>
-        {line}
-        <br />
-      </Fragment>
-    ))}
-  </pre>
-)
-
-const OutputTemplate = ({ item: characters }) => (
-  <span>{characters.join('')}</span>
-)
-const StatusTemplate = ({ item: isValidOutput }) => (
-  <span>{isValidOutput ? 'ok' : 'nok'}</span>
-)
-
-export default function ResultTable({ data }) {
+export default function ResultTable({ data = [], activeId = '' }) {
   return (
-    <Table
-      fields={TABLE_HEAD}
-      data={data || []}
-      fieldTemplate={{
-        input: InputTemplate,
-        output: OutputTemplate,
-        outputValid: StatusTemplate,
-      }}
-    />
+    <Paper title="Results" sub={activeId}>
+      <Table fields={FIELDS} data={data} />
+    </Paper>
   )
 }

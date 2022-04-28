@@ -1,6 +1,7 @@
 import { useState } from 'react'
-import FileInput from 'components/common/FileInput'
 import { useRouter } from 'next/router'
+import { Paper, Button, FileInput } from 'components/common'
+import styles from './AddFile.module.css'
 
 export default function ParseFile() {
   const [files, setFiles] = useState([])
@@ -31,11 +32,20 @@ export default function ParseFile() {
   }
 
   return (
-    <>
+    <Paper>
       <FileInput multiple={false} value={files} onChange={onFilesChange} />
-      <button onClick={submit} disabled={!files.length}>
-        Submit
-      </button>
-    </>
+      {files.length > 0 && (
+        <div className={styles.actions}>
+          <span>
+            <small className={styles.filenameLabel}>FILE:</small>
+            <span>{` ${files[0].name}`}</span>
+          </span>
+
+          <Button onClick={submit} disabled={!files.length}>
+            Process file
+          </Button>
+        </div>
+      )}
+    </Paper>
   )
 }

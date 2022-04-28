@@ -27,7 +27,7 @@ export default function Results({ ssr = {} }) {
           </>
         }
       >
-        <ResultTable data={data} />
+        <ResultTable data={data} activeId={resultId} />
       </SplitLayout>
     </>
   )

@@ -1,4 +1,4 @@
-import List from 'components/common/List'
+import { Paper, List } from 'components/common'
 import Tempalte from './ItemTemplate'
 
 export default function HistoryList({ history, activeId }) {
@@ -6,5 +6,9 @@ export default function HistoryList({ history, activeId }) {
   if (activeItem) {
     activeItem.active = true
   }
-  return <List template={Tempalte} items={history} />
+  return (
+    <Paper title="File History">
+      <List template={Tempalte} items={history} />
+    </Paper>
+  )
 }

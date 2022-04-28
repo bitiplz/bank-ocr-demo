@@ -1,2 +1,38 @@
 .root {
+  width: 100%;
+  position: relative;
+}
+
+.row:nth-child(odd) {
+  background-color: var(--gray-4);
+}
+.row:nth-child(even) {
+  background-color: var(--gray-3);
+}
+
+.cell {
+  padding: 0 4px;
+}
+
+.cell pre {
+  margin: 4px;
+}
+
+.cellRight {
+  text-align: right;
+}
+
+.cellLeft {
+  text-align: left;
+}
+
+.headCell {
+  color: var(--primary);
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  padding: 4px;
+  border-bottom: 4px solid var(--main-color);
+  background-color: var(--paper-bg);
+  position: sticky;
+  top: 0;
 }

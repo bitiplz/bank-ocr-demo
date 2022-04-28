@@ -1,4 +1,4 @@
-import styles from 'styles/Layout.module.css'
+import styles from './Layouts.module.css'
 
 export default function CenteredLayout({ children }) {
   return (

@@ -1,0 +1,11 @@
+.actions {
+  margin: 0.5rem 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.filenameLabel {
+  padding-right: 0.5rem;
+}
