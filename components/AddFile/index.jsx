@@ -8,10 +8,6 @@ export default function AddFile() {
   const [processing, setProcessing] = useState(false)
   const { push: navigate } = useRouter()
 
-  const onFilesChange = (files) => {
-    setFiles(files)
-  }
-
   const submit = () => {
     if (files.length) {
       setProcessing(true)
@@ -21,13 +17,15 @@ export default function AddFile() {
 
       const request = new XMLHttpRequest()
       request.onreadystatechange = () => {
-        setProcessing(false)
-        setFiles([])
         if (request.readyState == 4) {
           if (request.status == 200) {
             const { id } = JSON.parse(request.response)
             navigate(`/result/${id}`)
-          } else alert('Error')
+          } else {
+            setProcessing(false)
+            setFiles([])
+            alert('Error')
+          }
         }
       }
       request.open('POST', '/api/ocr/file')
@@ -37,31 +35,37 @@ export default function AddFile() {
 
   return (
     <Paper>
-      <FileInput
-        multiple={false}
-        value={files}
-        onChange={onFilesChange}
-        disabled={processing}
-      />
-      {files.length > 0 && !processing && (
-        <div className={styles.actions}>
-          <span className={styles.col}>
-            <span className={styles.filenameLabel}>{` ${files[0].name}`}</span>
-            <span
-              role="button"
-              className={styles.rm}
-              onClick={() => setFiles([])}
-            >
-              remove
-            </span>
-          </span>
+      {processing && <i>processing...</i>}
+      {!processing && (
+        <>
+          <FileInput
+            multiple={false}
+            value={files}
+            onChange={setFiles}
+            disabled={processing}
+          />
+          {files.length > 0 && (
+            <div className={styles.actions}>
+              <span className={styles.col}>
+                <span
+                  className={styles.filenameLabel}
+                >{` ${files[0].name}`}</span>
+                <span
+                  role="button"
+                  className={styles.rm}
+                  onClick={() => setFiles([])}
+                >
+                  remove
+                </span>
+              </span>
 
-          <Button onClick={submit} disabled={!files.length || processing}>
-            Process file
-          </Button>
-        </div>
+              <Button onClick={submit} disabled={!files.length || processing}>
+                Process file
+              </Button>
+            </div>
+          )}
+        </>
       )}
-      {processing && <i>procesisng...</i>}
     </Paper>
   )
 }

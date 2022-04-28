@@ -3,6 +3,8 @@ import Head from 'next/head'
 import CenteredLayout from 'layouts/CenteredLayout'
 import HistoryList from 'components/HistoryList'
 
+import Link from 'next/link'
+
 export default function Results({ ssr = {} }) {
   const { history } = ssr
 
@@ -15,6 +17,7 @@ export default function Results({ ssr = {} }) {
       </Head>
       <CenteredLayout>
         <HistoryList history={history} />
+        <Link href="/">Go back</Link>
       </CenteredLayout>
     </>
   )
