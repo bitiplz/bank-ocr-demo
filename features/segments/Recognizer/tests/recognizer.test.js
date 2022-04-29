@@ -121,7 +121,13 @@ describe('recognizer', () => {
         '                           \n\n' +
         ' _  _  _  _  _  _  _  _  _ \n' +
         ' _| _C _| _| _| _| _| _| _|\n' +
-        '|_ |_ |_ |_ |_ Q_ |_ xxx|_ \n'
+        '|_ |_ |_ |_ |_ Q_ |_ xxx|_ \n\n'+
+        ' _  _  _  _  _  _     _  _ \n'+
+        '|_\\| ||_ |_||_ |  |_||_\\  |\n'+
+        '|_/|_||_ |_||_ |_   ||_/  |\n\n'+
+        ' _  _  _  _  _  _  _  _  _ \n'+
+        '|_||_\\|  | \\|_ |_ | ||_| _|\n'+
+        '| ||_/|_ |_/|_ |  |_||_| _|\n'
 
     const result = segments(input)
 
@@ -131,11 +137,13 @@ describe('recognizer', () => {
       status,
     }))
 
-    expect(results.length).toBe(3)
+    expect(results.length).toBe(5)
     expect(messages.length).toBe(0)
 
     expect(results[0].value.join('')).toBe('123456789')
-    expect(results[1].value.join('')).toBe('1??4??7??')
+    expect(results[1].value.join('')).toBe('1??4FF7??')
     expect(results[2].value.join('')).toBe('2?222?2?2')
+    expect(results[3].value.join('')).toBe('B0E8EC4B7')
+    expect(results[4].value.join('')).toBe('ABCDEF083')
   })
 })
