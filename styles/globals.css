@@ -14,11 +14,17 @@
   --gray-1: #ccc;
   --gray-2: #ddd;
   --gray-3: #eee;
+
   --info: cyan;
+  --info-contrast: black;
   --success: lime;
+  --success-contrast: black;
   --warning: yellow;
+  --warning-contrast: black;
   --error: red;
+  --error-contrast: white;
   --pink: pink;
+  --pink-contrast: black;
 
   --trans-default: all 0.1s ease;
 }

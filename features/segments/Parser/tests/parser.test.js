@@ -3,7 +3,7 @@ import * as MESSAGE from '../messages'
 
 describe('parser', () => {
   test('not string input error', async () => {
-    const { data, messages } = parseRecords()
+    const { data, messages } = parseRecords()()
 
     const nullResult = data === null
     const singleMessageNoInput =
@@ -15,7 +15,7 @@ describe('parser', () => {
   })
 
   test('empty string input error', async () => {
-    const { data, messages } = parseRecords('')
+    const { data, messages } = parseRecords()('')
 
     const nullResult = data === null
     const singleMessageNoInput =
@@ -30,7 +30,7 @@ describe('parser', () => {
     // prettier-ignore
     const input =   ' _  _  _  _  _  _  _  _  _ \n'
 
-    const { data, messages } = parseRecords(input)
+    const { data, messages } = parseRecords()(input)
 
     const nullResult = data === null
     const singleMessageNoInput =
@@ -50,7 +50,7 @@ describe('parser', () => {
       '|  |  |  |  |  |  |  |  |  \n' +
       '|_ |_ |_ |_ |_ |_ |_ |_ |_ \n'
 
-    const { messages } = parseRecords(input)
+    const { messages } = parseRecords()(input)
 
     const warnings =
       Array.isArray(messages) &&
@@ -71,7 +71,7 @@ describe('parser', () => {
                     ' _| _X _C _| _| _| _|\n' +
                     '|_ |_ |_ |_ |_ |_ |_ \n'
 
-    const { messages } = parseRecords(input)
+    const { messages } = parseRecords()(input)
 
     const hasWarning = Array.isArray(messages) && messages.length > 0
 
@@ -87,7 +87,7 @@ describe('parser', () => {
                     ' _| _| _| _| _| _| _| _| _|\n' +
                     '|_ |_ |_ |_ |_ |_ |_ |_ |_ \n'
 
-    const { data, messages } = parseRecords(input)
+    const { data, messages } = parseRecords()(input)
 
     const resultStringMatches =
       data.length === 1 && data[0].output.join('') === '222222222'
@@ -106,7 +106,7 @@ describe('parser', () => {
                     ' _| _| _| _| _| _| _| _| _|\n' +
                     '|_ |_ |_ |_ |_ |_ |_ |_ |_ \n'
 
-    const { data, messages } = parseRecords(input)
+    const { data, messages } = parseRecords()(input)
 
     const resultStringMatches =
       data.length === 2 &&
@@ -143,7 +143,7 @@ describe('parser', () => {
                     ' _|\n' +
                     'bbb\n'
 
-    const { data, messages } = parseRecords(input, config)
+    const { data, messages } = parseRecords(config)(input)
 
     const resultStringMatches =
       data.length === 1 && data[0].output.join('') === '?'
@@ -154,7 +154,7 @@ describe('parser', () => {
   })
 
   test('other error', async () => {
-    const { data, messages } = parseRecords('', { _testError: true })
+    const { data, messages } = parseRecords({ _testError: true })('')
 
     const nullData = data === null
     const hasWarning = Array.isArray(messages) && messages.length > 0

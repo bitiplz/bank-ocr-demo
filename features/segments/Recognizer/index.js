@@ -1,12 +1,23 @@
-import { parser, evaluate, results, postRecord } from 'features/segments/Parser'
-import processor from './functions/processor'
+import create from './functions/create'
+export { create as createProcessor }
+export { default as checksum } from './functions/checksum'
 
-export default function process(input, config) {
-  const p = parser(input, config)
+const EMPTY = {
+  value: [],
+  status: null,
+}
 
-  postRecord(p, processor)
+export default function recognizeRecord(charArr, inputArray, charMap, config) {
+  try {
+    const item = {
+      output: charArr,
+      inputCharacters: inputArray,
+      inputValid: true,
+    }
+    const recognizer = create(config)({ charMap })
 
-  const result = results(evaluate(p, input))
-
-  return result
+    return recognizer(item)
+  } catch (error) {
+    return EMPTY
+  }
 }

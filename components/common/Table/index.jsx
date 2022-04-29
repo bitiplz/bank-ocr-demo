@@ -27,12 +27,16 @@ export default function Table({ fields = [], data = [] }) {
         {data.map((row, rowIndex) => (
           <tr key={rowIndex} className={styles.row}>
             {fields.map(
-              ({ field, template: Template = DefaultCellRenderer, align }) => {
-                const item =
-                  typeof field === 'function' ? field(row) : row[field]
+              ({
+                field,
+                template: Template = DefaultCellRenderer,
+                align,
+                id,
+              }) => {
+                const item = field ? row[field] : row
                 return (
                   <td
-                    key={field}
+                    key={id}
                     className={cx(styles.cell, {
                       [styles.cellLeft]: align !== 'right',
                       [styles.cellRight]: align === 'right',

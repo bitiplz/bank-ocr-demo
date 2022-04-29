@@ -21,6 +21,7 @@ export default function getRecords(parser) {
   if (result) {
     result.forEach((item) => {
       const recognizedEntry = []
+      const inputCharacters = []
 
       for (
         let charIndex = 0;
@@ -33,6 +34,8 @@ export default function getRecords(parser) {
           ''
         )
 
+        inputCharacters.push(sample)
+
         const match = characters.find(({ value }) => {
           return sample === value
         })
@@ -44,7 +47,7 @@ export default function getRecords(parser) {
       item.outputValid = !item.output.includes('?')
 
       if (recordPostProcessor) {
-        item.postProcessData = recordPostProcessor(recognizedEntry)
+        item.postProcessData = recordPostProcessor({ ...item, inputCharacters })
       }
     })
   }

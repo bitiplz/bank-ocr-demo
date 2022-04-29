@@ -1,5 +1,5 @@
 import { randomUUID as uuid } from 'crypto'
-import process from 'features/segments/Recognizer'
+import segments from 'features/segments'
 import multer from 'multer'
 import fs from 'fs'
 
@@ -42,10 +42,12 @@ export default async function file(req, res) {
 
     const { originalname: name, filename: id } = req.file
 
+    const data = segments(content)
+
     const newRecord = {
       name,
+      data,
       createdAt: new Date(),
-      data: process(content),
     }
 
     const { error } = await adapter.add(`/files/${id}`, newRecord)

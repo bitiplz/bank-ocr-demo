@@ -10,20 +10,25 @@
 
 .warning {
   background-color: var(--warning);
+  color: var(--warning-contrast);
 }
 
 .error {
   background-color: var(--error);
+  color: var(--error-contrast);
 }
 
 .success {
   background-color: var(--success);
+  color: var(--success-contrast);
 }
 
 .info {
   background-color: var(--info);
+  color: var(--info-contrast);
 }
 
 .pink {
   background-color: var(--pink);
+  color: var(--pink-contrast);
 }
