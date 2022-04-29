@@ -4,17 +4,6 @@ import AddFile from 'components/AddFile'
 
 import Link from 'next/link'
 
-import segments from 'features/segments'
-
-const input =
-  ' _  _  _  _  _     _  _    \n' +
-  '|_||_|| ||_|  |  | _| _|   \n' +
-  '|_||_||_| _|  |  ||_  _|  |\n'
-
-const x = segments(input)
-
-console.log('X', x)
-
 export default function Home() {
   return (
     <>
