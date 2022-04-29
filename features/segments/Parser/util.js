@@ -1,4 +1,5 @@
-import * as DEFAULTS from '../defaults'
+/*
+import * as DEFAULTS from './defaults'
 
 export const dumpRandomEntries = (n = 20) =>
   Array(n)
@@ -32,3 +33,4 @@ export const dumpRandomEntries = (n = 20) =>
         .join('\n')
     )
     .join('\n\n')
+*/

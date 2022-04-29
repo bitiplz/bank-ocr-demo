@@ -1,47 +1,37 @@
-import parseRecords from '../index'
+import createParser from '../index'
 import * as MESSAGE from '../messages'
+import { CHARACTER_MAP } from 'features/segments/Parser/defaults'
 
 describe('parser', () => {
-  test('not string input error', async () => {
-    const { data, messages } = parseRecords()
+  const parse = createParser()
 
-    const nullResult = data === null
-    const singleMessageNoInput =
-      Array.isArray(messages) &&
-      messages.length === 1 &&
-      messages[0] === MESSAGE.INPUT_INVALID
+  test('Non-string gives error', async () => {
+    const { data, messages } = parse()
 
-    expect(nullResult && singleMessageNoInput).toBeTruthy()
+    expect(data).toBe(null)
+    expect(messages.length).toBe(1)
+    expect(messages[0]).toBe(MESSAGE.INPUT_INVALID)
   })
 
-  test('empty string input error', async () => {
-    const { data, messages } = parseRecords('')
+  test('Empty string gives error', async () => {
+    const { data, messages } = parse('')
 
-    const nullResult = data === null
-    const singleMessageNoInput =
-      Array.isArray(messages) &&
-      messages.length === 1 &&
-      messages[0] === MESSAGE.INPUT_INSUFFICIENT
-
-    expect(nullResult && singleMessageNoInput).toBeTruthy()
+    expect(data).toBe(null)
+    expect(messages.length).toBe(1)
+    expect(messages[0]).toBe(MESSAGE.INPUT_INSUFFICIENT)
   })
 
-  test('short input error', async () => {
-    // prettier-ignore
-    const input =   ' _  _  _  _  _  _  _  _  _ \n'
+  test('Short input gives error', async () => {
+    const input = ' _  _  _  _  _  _  _  _  _ \n'
 
-    const { data, messages } = parseRecords(input)
+    const { data, messages } = parse(input)
 
-    const nullResult = data === null
-    const singleMessageNoInput =
-      Array.isArray(messages) &&
-      messages.length === 1 &&
-      messages[0] === MESSAGE.INPUT_INSUFFICIENT
-
-    expect(nullResult && singleMessageNoInput).toBeTruthy()
+    expect(data).toBe(null)
+    expect(messages.length).toBe(1)
+    expect(messages[0]).toBe(MESSAGE.INPUT_INSUFFICIENT)
   })
 
-  test('wrong pattern input error', async () => {
+  test('Wrong pattern gives error', async () => {
     // prettier-ignore
     const input =
       ' _  _  _  _  _  _  _  _  _ \n' +
@@ -50,19 +40,17 @@ describe('parser', () => {
       '|  |  |  |  |  |  |  |  |  \n' +
       '|_ |_ |_ |_ |_ |_ |_ |_ |_ \n'
 
-    const { messages } = parseRecords(input)
+    const { messages } = parse(input)
 
-    const warnings =
-      Array.isArray(messages) &&
-      messages.length > 0 &&
-      messages.find(
-        ({ type }) => type === MESSAGE.INPUT_MISMATCHES_PATTERN.type
-      )
+    const hasMismatchWarning = messages.find(
+      ({ type }) => type === MESSAGE.INPUT_MISMATCHES_PATTERN.type
+    )
 
-    expect(warnings).toBeTruthy()
+    expect(messages.length > 0).toBeTruthy()
+    expect(hasMismatchWarning).toBeTruthy()
   })
 
-  test('malformed input warning', async () => {
+  test('Malformed gives warning', async () => {
     // prettier-ignore
     const input =   ' _  _  _  _  _  _  _  _  _ \n' +
                     ' _| _| _| _| _| _| _| _| _|\n' +
@@ -71,33 +59,28 @@ describe('parser', () => {
                     ' _| _X _C _| _| _| _|\n' +
                     '|_ |_ |_ |_ |_ |_ |_ \n'
 
-    const { messages } = parseRecords(input)
+    const { messages } = parse(input)
 
-    const hasWarning = Array.isArray(messages) && messages.length > 0
+    const hasMalformedWarning = messages.find(
+      ({ type }) => type === MESSAGE.ENTRY_MALFORMED().type
+    )
 
-    const warningTypeMatches =
-      messages[0].type == MESSAGE.ENTRY_MALFORMED().type
-
-    expect(hasWarning && warningTypeMatches).toBeTruthy()
+    expect(hasMalformedWarning).toBeTruthy()
   })
 
-  test('single entry no config', async () => {
+  test('Single entry', async () => {
     // prettier-ignore
     const input =   ' _  _  _  _  _  _  _  _  _ \n' +
                     ' _| _| _| _| _| _| _| _| _|\n' +
                     '|_ |_ |_ |_ |_ |_ |_ |_ |_ \n'
 
-    const { data, messages } = parseRecords(input)
+    const { data, messages } = parse(input)
 
-    const resultStringMatches =
-      data.length === 1 && data[0].output.join('') === '222222222'
-
-    const messagesEmpty = Array.isArray(messages) && messages.length === 0
-
-    expect(messagesEmpty && resultStringMatches).toBeTruthy()
+    expect(data[0].output.join('')).toBe('222222222')
+    expect(messages.length).toBe(0)
   })
 
-  test('multiple entry no config', async () => {
+  test('Multiple entries', async () => {
     // prettier-ignore
     const input =   ' _  _  _  _  _  _  _  _  _ \n' +
                     ' _| _| _| _| _| _| _| _| _|\n' +
@@ -106,60 +89,65 @@ describe('parser', () => {
                     ' _| _| _| _| _| _| _| _| _|\n' +
                     '|_ |_ |_ |_ |_ |_ |_ |_ |_ \n'
 
-    const { data, messages } = parseRecords(input)
+    const { data, messages } = parse(input)
 
-    const resultStringMatches =
-      data.length === 2 &&
-      data[0].output.join('') === '222222222' &&
-      data[1].output.join('') === '222222222'
-
-    const messagesEmpty = Array.isArray(messages) && messages.length === 0
-
-    expect(messagesEmpty && resultStringMatches).toBeTruthy()
+    expect(data[0].output.join('')).toBe('222222222')
+    expect(data[1].output.join('')).toBe('222222222')
+    expect(messages.length).toBe(0)
   })
 
-  test('with config', async () => {
-    // prettier-ignore
-    const config = {
-      characterMap: [
-        'aaa'+
-        '   '+
-        'bbb'
-      ],
-      mask: {
-        a: [[' '], ['a']],
-        b: [[' '], ['b']],
-        D: [['X'], ['*']],
-      },
-      pattern: [
-        ['a', 'a', 'a'],
-        ['E', 'F', 'G'],
-        ['b', 'b', 'b'],
-      ],
+  test('Other error appears in messages', async () => {
+    const { data, messages } = createParser({ _testError: true })('')
+
+    const hasOtherError = messages.find(
+      ({ type }) => type === MESSAGE.ERROR().type
+    )
+
+    expect(data).toBe(null)
+    expect(hasOtherError).toBeTruthy()
+  })
+
+  Object.entries(CHARACTER_MAP).forEach(([value, pattern]) => {
+    test(`With config. All characters in default config. ( ${value} )`, async () => {
+      const parseSingle = createParser({ charactersPerEntry: 1 })
+
+      // prettier-ignore
+      const input = `${pattern.slice(0, 3)}\n${pattern.slice(3, 6)}\n${pattern.slice(6, 9)}\n`
+
+      const { data, messages } = parseSingle(input)
+
+      expect(data.length).toBe(1)
+      expect(data[0].output.join('')).toBe(String(value))
+      expect(messages.length).toBe(0)
+    })
+  })
+
+  test('Extended map working', async () => {
+    const parseSingleWithMapExtend = createParser({
       charactersPerEntry: 1,
-    }
+      extendMap: true,
+      // prettier-ignore
+      characterMap: {
+      X:
+        'X X'+
+        ' X '+
+        'X X'
+      },
+    })
+
     // prettier-ignore
-    const input =   'aaa\n' +
+    const input =   ' _ \n' +
                     ' _|\n' +
-                    'bbb\n'
+                    '|_ \n\n' +
+                    'X X\n' +
+                    ' X \n' +
+                    'X X\n'
 
-    const { data, messages } = parseRecords(input, config)
+    const { data, messages } = parseSingleWithMapExtend(input)
 
-    const resultStringMatches =
-      data.length === 1 && data[0].output.join('') === '?'
-
-    const messagesEmpty = Array.isArray(messages) && messages.length === 0
-
-    expect(messagesEmpty && resultStringMatches).toBeTruthy()
-  })
-
-  test('other error', async () => {
-    const { data, messages } = parseRecords('', { _testError: true })
-
-    const nullData = data === null
-    const hasWarning = Array.isArray(messages) && messages.length > 0
-    const warningTypeMatches = messages[0].type == MESSAGE.ERROR().type
-
-    expect(nullData && hasWarning && warningTypeMatches).toBeTruthy()
+    expect(data.length).toBe(2)
+    expect(data[0].output.join('')).toBe('2')
+    expect(data[1].output.join('')).toBe('X')
+    expect(messages.length).toBe(0)
   })
 })

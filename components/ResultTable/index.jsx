@@ -2,15 +2,15 @@ import { Paper, Table } from 'components/common'
 import * as Template from './Templates'
 
 const FIELDS = [
-  { field: 'input', label: 'Input', template: Template.Input },
+  { id: 'input', field: 'input', label: 'Input', template: Template.Input },
   {
-    field: 'output',
+    id: 'account',
     label: 'Account',
     template: Template.Output,
     align: 'right',
   },
   {
-    field: (row) => row,
+    id: 'status',
     label: 'Status',
     template: Template.Status,
     align: 'right',

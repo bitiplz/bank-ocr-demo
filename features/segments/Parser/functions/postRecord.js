@@ -1,8 +1,10 @@
 import { POST_RECORD_FAILED } from '../messages'
 
-export default function postRecord(parser, processor) {
-  if (parser?.result === null && typeof processor === 'function') {
-    const { messages } = parser
+export default function postRecord(parser, initProcessor) {
+  if (parser?.result === null && typeof initProcessor === 'function') {
+    const { config, messages } = parser
+
+    const processor = initProcessor(config)
 
     parser.recordPostProcessor = (record) => {
       try {

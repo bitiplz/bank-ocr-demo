@@ -12,21 +12,34 @@ export const Input = ({ item: lines }) => (
   </pre>
 )
 
-export const Output = ({ item: characters }) => (
-  <span>{characters.join('')}</span>
-)
+export const Output = ({ item: { output = {}, postProcessData = {} } }) => {
+  const { characters: originalValue } = output
+  const { value } = postProcessData
+  const shownValue = (value || originalValue).join('')
 
-export const Status = ({
-  item: {
-    postProcessData: { checksumValid },
-    outputValid,
-  },
-}) => {
-  const ill = !outputValid
-  const err = !ill && !checksumValid
+  return <span>{shownValue}</span>
+}
 
-  const color = err ? 'error' : ill ? 'warning' : 'success'
-  const text = err ? 'ERR' : ill ? 'ILL' : 'OK'
+export const Status = ({ item: { postProcessData = {} } }) => {
+  const { status } = postProcessData
+
+  const hasStatus = Boolean(status)
+
+  const err = status === 'ERR'
+  const ill = status === 'ILL'
+  const amb = status === 'AMB'
+
+  const color = !hasStatus
+    ? 'error'
+    : err
+    ? 'pink'
+    : ill
+    ? 'warning'
+    : amb
+    ? 'info'
+    : 'success'
+
+  const text = hasStatus ? status : '!'
 
   return <Chip color={color}>{text}</Chip>
 }
