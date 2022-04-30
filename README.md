@@ -6,11 +6,23 @@ Mvp demo for a simple web app to process text files and extract bank account num
 
 ---
 
-### Run
+### Install & Run
 
 ```
 yarn install
-yarn demo
+```
+
+then
+
+```
+yarn demo  // once
+```
+
+or
+
+```
+yarn build // once
+yarn start
 ```
 
 ## Input requirements
