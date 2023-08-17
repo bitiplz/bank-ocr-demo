@@ -1,4 +1,5 @@
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/bitiplz/bank-ocr-demo/ci.yml?branch=main)
+![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/bitiplz/bank-ocr-demo/ci.yml?label=build&branch=main)
+![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/bitiplz/bank-ocr-demo/test.yml?label=tests&branch=main)
 
 # Bank OCR Demo App
 
